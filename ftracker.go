@@ -106,7 +106,9 @@ func WalkingSpentCalories(action int, duration, weight, height float64) float64 
 
 	// ((0.035 * ВесСпортсменаВКг + (СредняяСкоростьВМетрахВСекунду**2 / РостВМетрах) * 0.029 * ВесСпортсменаВКг) * ВремяТренировкиВЧасах * minInH)
 
-	return ((float64(walkingCaloriesWeightMultiplier)*weight + (math.Pow(((float64(action)*float64(lenStep))/(duration*3600.0)), 2)/(height/100.0))*float64(walkingSpeedHeightMultiplier)*weight) * duration * float64(minInH))
+	averSpeed := math.Pow((float64(action) * float64(lenStep)), 2)
+
+	return ((walkingCaloriesWeightMultiplier*weight + (averSpeed/(height/100.0))*walkingSpeedHeightMultiplier*weight) * duration * minInH)
 	//return ((float64(walkingCaloriesWeightMultiplier)*weight + (math.Pow((meanSpeed(action, duration)*kmhInMsec), 2)/height)*float64(walkingSpeedHeightMultiplier)*weight) * duration * float64(minInH))
 }
 
